@@ -2,7 +2,12 @@ import mongoose from "mongoose";
 
 export const ConnectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB, {
+    const connectionString = process.env.MONGODB;
+    if (!connectionString) {
+      throw new Error("MongoDB connection string is not defined.");
+    }
+
+    await mongoose.connect(connectionString, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

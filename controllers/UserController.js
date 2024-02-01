@@ -75,3 +75,8 @@ export const personalData = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const userData = (req, res) => {
+  try {
+  } catch (error) {}
+};

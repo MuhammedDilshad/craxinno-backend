@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export const registerController = async (req, res) => {
+  console.log(req.body);
   try {
     const { email, phone, password } = req.body;
     const existingUser = await User.findOne({ email: email });

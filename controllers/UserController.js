@@ -46,7 +46,7 @@ export const registerController = async (req, res) => {
 
 export const personalData = async (req, res) => {
   const {
-    title,
+    gender,
     fullname,
     date,
     address,
@@ -54,11 +54,13 @@ export const personalData = async (req, res) => {
     textdetails,
     employment,
     savings,
+    userId,
   } = req.body;
 
   try {
     const personalInstance = new Personal({
-      title,
+      userId,
+      gender,
       fullname,
       date,
       address,
@@ -77,7 +79,21 @@ export const personalData = async (req, res) => {
   }
 };
 
-export const userData = (req, res) => {
+export const userData = async (req, res) => {
   try {
-  } catch (error) {}
+    console.log("i am ain");
+    const userId = req.params.userId;
+    console.log(userId, "userId");
+    const personalData = await Personal.findOne({ userId });
+
+    if (!personalData) {
+      console.log("Personal data not found");
+      return res.status(404).json({ message: "Personal data not found" });
+    }
+
+    res.status(200).json(personalData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };

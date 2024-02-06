@@ -10,10 +10,8 @@ export const ConnectDB = async () => {
       throw new Error("MongoDB connection string is not defined.");
     }
 
-    await mongoose.connect(connectionString, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(connectionString);
+
     console.log("Db Connected");
   } catch (error) {
     console.error(error, "Db error");
